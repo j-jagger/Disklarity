@@ -8,36 +8,33 @@ import sys
 from wmi import WMI
 from lib.helpers import *
 from lib.gui import StartInterface
-from lib.mainfunctions import VerifyDrive
+from lib.mainfunctions import VerifyDrive, ListDevices,PrintHelp
 
 
-c = WMI()
-
-CHUNK_INDEX = 10
-
-
-
-
-def ListDevices():
-    print("Listing Devices...")
-
-    for i in c.Win32_DiskDrive():
-        dev = wmi_to_dict(i)
-
-        print(f"Found: '{dev.get('Model')}' @ {dev.get('DeviceID')}'")
-
-
-if __name__ == "__main__":
+def Entrypoint():
     args = sys.argv
 
+    try:
+        args[1]
+    except IndexError:
+        print("Please provide arguments. Run 'help' for more info.")
+        exit(1)
+    
     if args[1] == "list":
-        print("Listing.")
         ListDevices()
         exit()
 
+    if args[1] == "help":
+        PrintHelp()
+        exit()
+
     if args[1] == "gui":
-        print("Opening UI...")
         StartInterface()
         exit()
+
     else:
         VerifyDrive(args[1],10)
+
+
+if __name__ == "__main__":
+    Entrypoint()

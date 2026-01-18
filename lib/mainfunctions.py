@@ -54,3 +54,26 @@ def VerifyDrive(path,x_many_reads):
                     print(f"[✔] Chunk @ {offset} normal. SHA256[16]: {hashlib.sha256(data).hexdigest()[:16]}")
             except:
                 print(f"!!! READ FAILED @ {offset} !!!")
+
+def ListDevices():
+    print("Listing Devices...")
+
+    for i in c.Win32_DiskDrive():
+        dev = wmi_to_dict(i)
+
+        print(f"Found: '{dev.get('Model')}' @ {dev.get('DeviceID')}'")
+
+def PrintHelp():
+    # I would use one multiline print statement for this, but it looks weird.
+    print("\n" * 3)
+    print("Disklarity [https://github.com/j-jagger/Disklarity/]")
+    print("Disk Capacity Verification Utility")
+    print("+-----------------------+----------------------------------+")
+    print("| Command & Name        | Description                      |")
+    print("+-----------------------+----------------------------------+")
+    print("| disklarity.py list    | Lists all Win32_DiskDrives.      |")
+    print("| disklarity.py \\.\dev0 | Runs Disklarity on that drive.   |")
+    #print("| disklarity.py gui     | Opens the User Interface.        |") not yet implemented
+    print("+-----------------------+----------------------------------+")
+    print("\n" * 3)
+
