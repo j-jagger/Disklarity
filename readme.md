@@ -17,7 +17,7 @@ To begin with, run Python as an Administrator.
 Then, run:
 
 ```bash
-main.py list
+disklarity.py list
 ```
 
 this should output similar to the following:
@@ -35,7 +35,7 @@ Note that ``\\.\PHYSICALDRIVE0`` is your Windows drive. No matter your UAC level
 Next, once you've found your device of choice run:
 
 ```
-main.py \\.\PHYSICALDRIVE#
+disklarity.py \\.\PHYSICALDRIVE#
 ```
 
 Wherein # is the number at the end of your device's ``\\.\PHYSICALDRIVE`` string.
