@@ -45,21 +45,21 @@ def Entrypoint():
         args[1]
     except IndexError:
         print("Please provide arguments. Run 'help' for more info.")
-        exit(1)
+        sys.exit(1)
     
     CheckElevation(args) # Checks for elevation and elevates if possible.
 
     if args[1] == "list":
         ListDevices()
-        exit()
+        sys.exit()
 
     if args[1] == "help":
         PrintHelp()
-        exit()
+        sys.exit()
 
     if args[1] == "gui":
         StartInterface()
-        exit()
+        sys.exit()
 
     else:
         VerifyDrive(args[1],AMOUNT_OF_CHECKS)

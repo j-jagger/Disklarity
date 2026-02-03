@@ -81,7 +81,7 @@ def PrintHelp():
     print("| Command & Name        | Description                      |")
     print("+-----------------------+----------------------------------+")
     print("| disklarity.py list    | Lists all Win32_DiskDrives.      |")
-    print("| disklarity.py dev0    | Runs Disklarity on that drive.   |")
+    print("| disklarity.py \.\dev0 | Runs Disklarity on that drive.   |")
     #print("| disklarity.py gui     | Opens the User Interface.        |") not yet implemented
     print("+-----------------------+----------------------------------+")
     print("\n" * 3)
