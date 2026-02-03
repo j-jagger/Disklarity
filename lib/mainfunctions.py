@@ -79,8 +79,12 @@ def PrintHelp():
 Command List:
           
 disklarity verify
+Runs Disklarity's main function, disk verification.
+          
 Required arguments: Device Path (\.\DevicePath)
 Optional arguments: Read Amounts (integer, default is 12.)
 
+disklarity list
+Scans for devices and prints them to the console.
 
 """)
