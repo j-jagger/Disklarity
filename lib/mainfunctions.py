@@ -73,16 +73,14 @@ def ListDevices():
         print(f"[!] Failed to list devices: {e}")
 
 def PrintHelp():
-    # I would use one multiline print statement for this, but it looks weird.
     print("\n" * 3)
     print("Disklarity [https://github.com/j-jagger/Disklarity/]")
-    print("Disk Capacity Verification Utility")
-    print("+-----------------------+----------------------------------+")
-    print("| Command & Name        | Description                      |")
-    print("+-----------------------+----------------------------------+")
-    print("| disklarity.py list    | Lists all Win32_DiskDrives.      |")
-    print("| disklarity.py \.\dev0 | Runs Disklarity on that drive.   |")
-    #print("| disklarity.py gui     | Opens the User Interface.        |") not yet implemented
-    print("+-----------------------+----------------------------------+")
-    print("\n" * 3)
+    print("""
+Command List:
+          
+disklarity verify
+Required arguments: Device Path (\.\DevicePath)
+Optional arguments: Read Amounts (integer, default is 12.)
 
+
+""")
