@@ -1,9 +1,11 @@
-# <img src="/branding/disklarity-lg.png">
+# ![Disklarity](/branding/disklarity-lg.png)
 ## By Joe Jagger
-[![Build and Release [WIN32/64]](https://github.com/j-jagger/Disklarity/actions/workflows/buildrelease.yml/badge.svg)](https://github.com/j-jagger/Disklarity/actions/workflows/buildrelease.yml)
 
 
 Disk Capacity Verification Utility
+
+[![Releases](https://img.shields.io/badge/Disklarity-View_Binaries-blue?style=for-the-badge)](https://github.com/j-jagger/Disklarity/releases)
+![Build Status](https://img.shields.io/github/actions/workflow/status/j-jagger/Disklarity/buildrelease.yml?style=for-the-badge)
 
 
 ## Opening Notes:
@@ -20,7 +22,7 @@ To begin with, run Python as an Administrator.
 Then, run:
 
 ```bash
-disklarity.py list
+disklarity list
 ```
 
 this should output similar to the following:
@@ -38,7 +40,7 @@ Note that ``\\.\PHYSICALDRIVE0`` is your Windows drive. No matter your UAC level
 Next, once you've found your device of choice run:
 
 ```
-disklarity.py \\.\PHYSICALDRIVE#
+disklarity \\.\PHYSICALDRIVE#
 ```
 
 Wherein # is the number at the end of your device's ``\\.\PHYSICALDRIVE`` string.
@@ -49,10 +51,9 @@ After that, the program should guide you the rest of the way.
 
 ## Current State & Caveats:
 - Runs, and presumably works. (OnMyMachine™)
-- Only tested on two devices (Broken MicroSD over-reporting size & random 1MB drive I found.).
+- ~~Only tested on two devices (Broken MicroSD over-reporting size & random 1MB drive I found.).~~
 - No GUI. Tkinter-based GUI planned.
 - Missing thorough fake space checks.
-- Only Windows support as of late.
 
 ## Todo:
 - Add afforementioned fake space checks.

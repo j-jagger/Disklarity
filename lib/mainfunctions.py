@@ -48,18 +48,19 @@ def VerifyDrive(path,x_many_reads):
             offset = step * chunk 
 
             device.seek(offset) # Change Pointer location
-            print(f"Trying read... [Offset: {offset}]") 
+            print(f"[New Read] Trying read... [Offset: {offset}]") 
             try:
                 data = device.read(chunksize) # Attempt read
                 if not data:
-                    print(f"!!! EMPTY READ @ {offset} !!!")
+                    print(f"[WARNING] EMPTY READ @ {offset} !!!")
                 elif data == bytes(chunksize): # Might modify this, it's a bit inefficient I believe as it allocates an entire bytes object. If chunksize is like 1gb (not sure why anyone would set that in the first place) this would be a major issue.
-                    print(f"!!! READ EMPTY BYTES @ {offset} !!!")
+                    print(f"[WARNING] READ EMPTY BYTES @ {offset} !!!")
                 else:
                     # TODO: Add SHA logs and a filesystem verification system.
-                    print(f"[✔] Chunk @ {offset} normal. SHA256 Trunc. 16: {hashlib.sha256(data).hexdigest()[:16]}")
+                    print(f"[SUCCESS] Chunk @ {offset} normal. SHA256 Trunc. 16: {hashlib.sha256(data).hexdigest()[:16]}")
             except:
-                print(f"!!! READ FAILED @ {offset} !!!")
+                print(f"[DANGER] READ FAILED @ {offset} !!!")
+    print("[?] ")
 
 def ListDevices():
     print("[?] Listing Devices...")
@@ -73,18 +74,26 @@ def ListDevices():
         print(f"[!] Failed to list devices: {e}")
 
 def PrintHelp():
-    print("\n" * 3)
     print("Disklarity [https://github.com/j-jagger/Disklarity/]")
-    print("""
-Command List:
+    print(r"""
+-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+          
+Command List: 
+          
+-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
           
 disklarity verify
 Runs Disklarity's main function, disk verification.
-          
-Required arguments: Device Path (\.\DevicePath)
+    
+Required arguments: Device Path (\\.\DeviceIDFromListing)
 Optional arguments: Read Amounts (integer, default is 12.)
+          
+Example: disklarity verify \\.\PHYSICALDRIVE2 24
+
+-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 
 disklarity list
 Scans for devices and prints them to the console.
+-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 
 """)
