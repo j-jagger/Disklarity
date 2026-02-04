@@ -64,6 +64,7 @@ def Entrypoint():
     else:
         VerifyDrive(args[1],int(args[2]) or AMOUNT_OF_CHECKS)
 
+    
 
 if __name__ == "__main__":
     Entrypoint()
