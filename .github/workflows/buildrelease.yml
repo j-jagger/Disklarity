@@ -2,6 +2,8 @@ name: Build and Release [WIN32/64]
 
 on:
   push:
+    branches-ignore:
+      - main
     tags:
       - '*'
 
