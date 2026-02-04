@@ -7,13 +7,41 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest # <-- switch to Windows runner
+    runs-on: windows-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Cache pip packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~\AppData\Local\pip\Cache
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Cache Nuitka build artifacts
+        uses: actions/cache@v4
+        with:
+          path: |
+            .nuitka-cache
+          key: ${{ runner.os }}-nuitka-${{ hashFiles('**/*.py') }}
+          restore-keys: |
+            ${{ runner.os }}-nuitka-
 
       - name: Build with Nuitka
         uses: Nuitka/Nuitka-Action@main
@@ -25,15 +53,18 @@ jobs:
       - name: Collect commit messages since last tag
         id: changelog
         run: |
-          LAST_TAG=$(git describe --tags --abbrev=0 HEAD^ || echo "")
+          git fetch --tags --quiet
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
           if [ -z "$LAST_TAG" ]; then
-            COMMITS=$(git log --pretty=format:"- %s")
+            COMMITS=$(git log --pretty=format:"- %s" --no-merges)
           else
-            COMMITS=$(git log ${LAST_TAG}..HEAD --pretty=format:"- %s")
+            COMMITS=$(git log "${LAST_TAG}..HEAD" --pretty=format:"- %s" --no-merges)
           fi
-          echo "notes<<EOF" >> $GITHUB_OUTPUT
-          echo "$COMMITS" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          {
+            printf "notes<<EOF\n"
+            printf "%s\n" "$COMMITS"
+            printf "EOF\n"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
