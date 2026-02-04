@@ -62,7 +62,7 @@ def Entrypoint():
         sys.exit()
 
     else:
-        VerifyDrive(args[1],AMOUNT_OF_CHECKS)
+        VerifyDrive(args[1],int(args[2]) or AMOUNT_OF_CHECKS)
 
 
 if __name__ == "__main__":

@@ -25,15 +25,26 @@ jobs:
       - name: Collect commit messages since last tag
         id: changelog
         run: |
-          LAST_TAG=$(git describe --tags --abbrev=0 HEAD^ || echo "")
+          # Ensure tags are available (important in GitHub Actions)
+          git fetch --tags --quiet
+
+          # Get the latest tag reachable from HEAD
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+
           if [ -z "$LAST_TAG" ]; then
-            COMMITS=$(git log --pretty=format:"- %s")
+            # No tags found, collect all commits
+            COMMITS=$(git log --pretty=format:"- %s" --no-merges)
           else
-            COMMITS=$(git log ${LAST_TAG}..HEAD --pretty=format:"- %s")
+            # Collect commits since the last tag
+            COMMITS=$(git log "${LAST_TAG}..HEAD" --pretty=format:"- %s" --no-merges)
           fi
-          echo "notes<<EOF" >> $GITHUB_OUTPUT
-          echo "$COMMITS" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+
+          # Output to GitHub Actions
+          {
+            printf "notes<<EOF\n"
+            printf "%s\n" "$COMMITS"
+            printf "EOF\n"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Create Release
         uses: softprops/action-gh-release@v2

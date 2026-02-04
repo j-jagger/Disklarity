@@ -1,5 +1,8 @@
 # <img src="/branding/disklarity-lg.png">
 ## By Joe Jagger
+[![Build and Release [WIN32/64]](https://github.com/j-jagger/Disklarity/actions/workflows/buildrelease.yml/badge.svg)](https://github.com/j-jagger/Disklarity/actions/workflows/buildrelease.yml)
+
+
 Disk Capacity Verification Utility
 
 
