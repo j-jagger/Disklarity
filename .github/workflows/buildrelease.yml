@@ -3,7 +3,7 @@ name: Build and Release [WIN32/64]
 on:
   push:
     tags:
-      - 'v*'
+      - '*'
 
 jobs:
   build:
