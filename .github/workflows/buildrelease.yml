@@ -22,29 +22,11 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Cache pip packages
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~\AppData\Local\pip\Cache
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           if (Test-Path requirements.txt) { pip install -r requirements.txt }
 
 
-      - name: Cache Nuitka build artifacts
-        uses: actions/cache@v4
-        with:
-          path: |
-            .nuitka-cache
-          key: ${{ runner.os }}-nuitka-${{ hashFiles('**/*.py') }}
-          restore-keys: |
-            ${{ runner.os }}-nuitka-
 
       - name: Build with Nuitka
         uses: Nuitka/Nuitka-Action@main

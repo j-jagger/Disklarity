@@ -18,7 +18,7 @@ AMOUNT_OF_CHECKS = 10
 
 
 
-def CheckElevation(argv):
+def CheckElevation(argv): # Experimental; Finnicky in practice.
     try:
         s32 = ctypes.windll.shell32 # WinShell32 Object
         if not s32.IsUserAnAdmin():
@@ -64,7 +64,7 @@ def Entrypoint():
     else:
         VerifyDrive(args[1],int(args[2]) or AMOUNT_OF_CHECKS)
 
-    
+
 
 if __name__ == "__main__":
     Entrypoint()

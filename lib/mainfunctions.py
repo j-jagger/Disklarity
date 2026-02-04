@@ -19,7 +19,7 @@ def VerifyDrive(path,x_many_reads):
         print(f"[!] Failed to load {path} via WMI: {e}")
         exit()
 
-    print(f"[✔] Located device {wmidevice.get("Caption")} [Path @ {path}]")
+    print(f"[✔] Located device {wmidevice.get('Caption')} [Path @ {path}]")
 
     chunksize = wmidevice.get("DefaultBlockSize") or wmidevice.get("BytesPerSector") # Might remove BytesPerSector.
     try:
